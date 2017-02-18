@@ -59,6 +59,28 @@
 		}
 
 		// send message
+//		$button = array(
+//			array(
+//					'type' => 'web_url',
+//					'url' => 'URL_HERE',
+//					'title' => 'TITLE_HERE'
+//				),
+//			array(
+//				'type' => 'web_url',
+//				'url' => 'URL_HERE',
+//				'title' => 'TITLE_HERE'
+//			),
+//			...
+//		);
+//		$elements = array(
+//			array(
+//			'title' => 'TITLE_TEXT_HERE',
+//			'item_url' => 'ITEM_URL_HERE',
+//			'image_url' => 'IMAGE_URL_HERE',
+//			'subtitle' => 'SUBTITLE_HERE',
+//			'buttons' => $buttons
+//			)
+//		);
 //		https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
 		public function sendGenericTemplate($chat_id, array $elements) {
 			return $this->endpoint("me/messages", array(
@@ -80,15 +102,15 @@
 
 		// send quick reply
 //		$replies = array(
-//		array(
-//			'content_type' => 'text',
-//			'title' => 'option 1',
-//			'payload' => 'payload1'
-//			),
 //			array(
-//			'content_type' => 'text',
-//			'title' => 'option 2',
-//			'payload' => 'payload2'
+//					'content_type' => 'text',
+//					'title' => 'TITLE_HERE',
+//					'payload' => 'DEVELOPER_CUSTOM_PAYLOAD_HERE'
+//				),
+//			array(
+//				'content_type' => 'text',
+//				'title' => 'TITLE_HERE',
+//				'payload' => 'DEVELOPER_CUSTOM_PAYLOAD_HERE'
 //			),
 //			...
 //		);
@@ -107,15 +129,17 @@
 		}
 
 		// send button
-//		$button = array(
-//		array(
-//			'type' => 'web_url',
-//			'url' => 'http://url_here',
-//			'title' => 'button 2'),
+//		$buttons = array(
 //			array(
-//			'type' => 'web_url',
-//			'url' => 'http://url_here',
-//			'title' => 'button 2'),
+//					'type' => 'web_url',
+//					'url' => 'URL_HERE',
+//					'title' => 'TITLE_HERE'
+//				),
+//			array(
+//				'type' => 'web_url',
+//				'url' => 'URL_HERE',
+//				'title' => 'TITLE_HERE'
+//			),
 //			...
 //		);
 //		https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template
@@ -154,13 +178,15 @@
 			return $this->data["entry"][0]["id"];
 		}
 
-		private function sendAPIRequest($url, array $content, $post = true) {
+		private function sendAPIRequest($url, array $content, $post = true, $response = false) {
 			$ch = curl_init($url);
 			if ($post) {
 				curl_setopt($ch, CURLOPT_POST, 1);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($content));
 			}
 			curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+			if ($response)
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			$result = curl_exec($ch);
 			curl_close($ch);
