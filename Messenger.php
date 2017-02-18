@@ -51,11 +51,11 @@
 		}
 
 		// send button
-//		array
+//		$buttons = array
 //		(
 //			'type' => 'web_url',
-//			'url' => 'https://petersapparel.parseapp.com',
-//			'title' => 'saca soh2'
+//			'url' => 'https://url.com',
+//			'title' => 'text'
 //		)
 		public function sendButton($chat_id, $text, array $buttons) {
 			return $this->endpoint("me/messages",
