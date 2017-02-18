@@ -5,7 +5,6 @@
 	 * @about Based on the Telegram API wrapper by Gabriele Grillo <gabry.grillo@alice.it>
 	 * TODO:
 	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/buy-button
-	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/share-button
 	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/url-button
 	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/image-attachment
 	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/sender-actions
@@ -143,6 +142,7 @@
 //			...
 //		);
 //		https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template
+//		https://developers.facebook.com/docs/messenger-platform/send-api-reference/share-button <- works only with sendGenericTemplate
 		public function sendButtonTemplate($chat_id, $text, array $buttons) {
 			return $this->endpoint("me/messages",
 				array(
