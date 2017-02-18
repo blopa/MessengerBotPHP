@@ -178,7 +178,7 @@
 			return $this->data["entry"][0]["id"];
 		}
 
-		private function sendAPIRequest($url, array $content, $post = true, $response = false) {
+		private function sendAPIRequest($url, array $content, $post = true, $response = true) {
 			$ch = curl_init($url);
 			if ($post) {
 				curl_setopt($ch, CURLOPT_POST, 1);
