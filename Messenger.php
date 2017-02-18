@@ -7,7 +7,7 @@
 	class Messenger {
 
 		private $bot_id = "";
-		private $api_version = "v2.6";
+		private $api_version = "v2.8";
 		private $data = array();
 		private $updates = array();
 
@@ -17,9 +17,14 @@
 			$this->data = $this->getData();
 		}
 
+		/// Verify website
+		public function verifyWebsite() {
+			// code here TODO
+		}
+
 		/// Do requests to Messenger Bot API
 		public function endpoint($api, array $content, $post = true) {
-			$url = 'https://graph.facebook.com/' . $this->api_version . '/me/messages?access_token=' . $this->bot_id; // . '/' . $api;
+			$url = 'https://graph.facebook.com/' . $this->api_version . '/' . $api . '?access_token=' . $this->bot_id; // . '/' . $api;
 			if ($post)
 				$reply = $this->sendAPIRequest($url, $content);
 			else
@@ -33,8 +38,45 @@
 		}
 
 		// send message
-		public function sendMessage(array $content) {
-			return $this->endpoint("sendMessage", $content);
+		public function sendMessage($chat_id, $text) {
+			return $this->endpoint("me/messages", array(
+					'recipient' => array(
+						'id' => $chat_id
+					),
+					'message' => array(
+						'text' => $text
+					)
+				)
+			);
+		}
+
+		// send button
+//		array
+//		(
+//			'type' => 'web_url',
+//			'url' => 'https://petersapparel.parseapp.com',
+//			'title' => 'saca soh2'
+//		)
+		public function sendButton($chat_id, $text, array $buttons) {
+			return $this->endpoint("me/messages",
+				array(
+					'recipient' => array(
+						'id' => $chat_id
+					),
+					'message' => array(
+						'attachment' => array(
+							'type' => 'template',
+							'payload' => array(
+								'template_type' => 'button',
+								'text' => $text,
+								'buttons' => array(
+									$buttons
+								)
+							)
+						)
+					)
+				)
+			);
 		}
 
 		/// Get the text of the current message
