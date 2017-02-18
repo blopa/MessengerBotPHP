@@ -3,6 +3,13 @@
 	 * Messenger Bot Class.
 	 * @author Pablo Montenegro
 	 * @about Based on the Telegram API wrapper by Gabriele Grillo <gabry.grillo@alice.it>
+	 * TODO:
+	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/buy-button
+	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/share-button
+	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/url-button
+	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/image-attachment
+	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/sender-actions
+	 * https://developers.facebook.com/docs/messenger-platform/send-api-reference/errors
 	 */
 	class Messenger {
 
@@ -38,6 +45,7 @@
 		}
 
 		// send message
+//		https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
 		public function sendMessage($chat_id, $text) {
 			return $this->endpoint("me/messages", array(
 					'recipient' => array(
@@ -50,14 +58,68 @@
 			);
 		}
 
+		// send message
+//		https://developers.facebook.com/docs/messenger-platform/send-api-reference#request
+		public function sendGenericTemplate($chat_id, array $elements) {
+			return $this->endpoint("me/messages", array(
+					'recipient' => array(
+						'id' => $chat_id
+					),
+					'message' => array(
+						'attachment' => array(
+							'type' => 'template',
+							'payload' => array(
+								'template_type' => 'generic',
+								'elements' => $elements
+							)
+						)
+					)
+				)
+			);
+		}
+
+		// send quick reply
+//		$replies = array(
+//		array(
+//			'content_type' => 'text',
+//			'title' => 'option 1',
+//			'payload' => 'payload1'
+//			),
+//			array(
+//			'content_type' => 'text',
+//			'title' => 'option 2',
+//			'payload' => 'payload2'
+//			),
+//			...
+//		);
+//		https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies
+		public function sendQuickReply($chat_id, $text, array $replies) {
+			return $this->endpoint("me/messages", array(
+					'recipient' => array(
+						'id' => $chat_id
+					),
+					'message' => array(
+						'text' => $text,
+						'quick_replies' => $replies
+					)
+				)
+			);
+		}
+
 		// send button
-//		$buttons = array
-//		(
+//		$button = array(
+//		array(
 //			'type' => 'web_url',
-//			'url' => 'https://url.com',
-//			'title' => 'text'
-//		)
-		public function sendButton($chat_id, $text, array $buttons) {
+//			'url' => 'http://url_here',
+//			'title' => 'button 2'),
+//			array(
+//			'type' => 'web_url',
+//			'url' => 'http://url_here',
+//			'title' => 'button 2'),
+//			...
+//		);
+//		https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template
+		public function sendButtonTemplate($chat_id, $text, array $buttons) {
 			return $this->endpoint("me/messages",
 				array(
 					'recipient' => array(
@@ -69,9 +131,7 @@
 							'payload' => array(
 								'template_type' => 'button',
 								'text' => $text,
-								'buttons' => array(
-									$buttons
-								)
+								'buttons' => $buttons
 							)
 						)
 					)
@@ -88,6 +148,7 @@
 		public function ChatID() {
 			return $this->data['entry'][0]['messaging'][0]['sender']['id'];
 		}
+
 		/// Get the message_id of the current message
 		public function EntryID() {
 			return $this->data["entry"][0]["id"];
