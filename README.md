@@ -1,6 +1,6 @@
 # MessengerBotPHP
 > A very simple PHP [Messenger Bot API](https://developers.facebook.com/docs/messenger-platform) for sending messages.    
-> Based on [Telegram Bot API](https://core.telegram.org/bots) by [Eleirbag89](https://github.com/Eleirbag89).
+> Based on [Telegram Bot API](https://github.com/Eleirbag89/TelegramBotPHP) by [Eleirbag89](https://github.com/Eleirbag89).
 
 Requirements
 ---------
