@@ -10,7 +10,7 @@ Requirements
 * Create a Facebook App at [https://developers.facebook.com/apps/](https://developers.facebook.com/apps/)
 
 For the WebHook:
-* An SSL certificate (Telegram API requires this). You can use [Cloudflare's Free Flexible SSL](https://www.cloudflare.com/ssl) which crypts the web traffic from end user to their proxies if you're using CloudFlare DNS.    
+* An SSL certificate (Facebook API requires this). You can use [Cloudflare's Free Flexible SSL](https://www.cloudflare.com/ssl) which crypts the web traffic from end user to their proxies if you're using CloudFlare DNS.    
 
 Installation
 ---------
